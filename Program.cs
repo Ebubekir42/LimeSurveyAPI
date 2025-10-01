@@ -1,4 +1,11 @@
+using LimeSurveyAPI.Configuration;
+using LimeSurveyAPI.Services;
+using LimeSurveyAPI.Services.Interfaces;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.Configure<LimeSurveySettings>(
+    builder.Configuration.GetSection("LimeSurvey"));
 
 // Add services to the container.
 
@@ -6,6 +13,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddHttpClient<ILimeSurveyService, LimeSurveyService>();
 
 var app = builder.Build();
 
