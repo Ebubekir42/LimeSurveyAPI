@@ -47,9 +47,18 @@ namespace LimeSurveyAPI.Services
         }
 
         // 🔹 Tüm kullanıcıları listeleme
-        public Task<List<Dictionary<string, object>>> GetUsersAsync(string sessionKey)
+        public async Task<List<Dictionary<string, object>>> GetUsersAsync(string sessionKey)
         {
-            return CallApiAsync<List<Dictionary<string, object>>>("list_users", sessionKey);
+            return await CallApiAsync<List<Dictionary<string, object>>>("list_users", sessionKey);
+        }
+
+        // Tüm anketleri listeleme
+        public async Task<List<Dictionary<string, object>>> ListSurveysAsync(string sessionKey, string? username = null)
+        {
+            if (username != null)
+                return await CallApiAsync<List<Dictionary<string, object>>>("list_surveys", sessionKey!, username);
+            else
+                return await CallApiAsync<List<Dictionary<string, object>>>("list_surveys", sessionKey!);
         }
 
     }

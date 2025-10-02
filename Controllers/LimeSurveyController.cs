@@ -27,5 +27,12 @@ namespace LimeSurveyAPI.Controllers
             var users = await _limeSurveyService.GetUsersAsync(sessionKey);
             return Ok(users);
         }
+
+        [HttpGet("surveys")]
+        public async Task<IActionResult> ListSurveys([FromQuery] string sessionKey, [FromQuery] string? username = null)
+        {
+            var result = await _limeSurveyService.ListSurveysAsync(sessionKey, username);
+            return Ok(result);
+        }
     }
 }
