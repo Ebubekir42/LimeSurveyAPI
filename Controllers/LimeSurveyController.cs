@@ -1,4 +1,5 @@
-﻿using LimeSurveyAPI.Services.Interfaces;
+﻿using LimeSurveyAPI.Models;
+using LimeSurveyAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LimeSurveyAPI.Controllers
@@ -32,6 +33,20 @@ namespace LimeSurveyAPI.Controllers
         public async Task<IActionResult> ListSurveys([FromQuery] string sessionKey, [FromQuery] string? username = null)
         {
             var result = await _limeSurveyService.ListSurveysAsync(sessionKey, username);
+            return Ok(result);
+        }
+
+        [HttpGet("user-groups")]
+        public async Task<IActionResult> ListUserGroups([FromQuery] string sessionKey)
+        {
+            var result = await _limeSurveyService.ListUserGroupsAsync(sessionKey);
+            return Ok(result);
+        }
+
+        [HttpGet("survey-groups")]
+        public async Task<IActionResult> ListSurveyGroups([FromQuery] string sessionKey)
+        {
+            var result = await _limeSurveyService.ListSurveyGroupsAsync(sessionKey);
             return Ok(result);
         }
     }

@@ -25,7 +25,6 @@ namespace LimeSurveyAPI.Services
                 id = 1,
                 @params = parameters
             };
-
             var content = new StringContent(JsonSerializer.Serialize(request), Encoding.UTF8, "application/json");
             var response = await _httpClient.PostAsync(_apiUrl, content);
             response.EnsureSuccessStatusCode();
@@ -61,5 +60,16 @@ namespace LimeSurveyAPI.Services
                 return await CallApiAsync<List<Dictionary<string, object>>>("list_surveys", sessionKey!);
         }
 
+        // Kullanıcı gruplarını listeleme
+        public async Task<List<Dictionary<string, object>>> ListUserGroupsAsync(string sessionKey)
+        {
+            return await CallApiAsync<List<Dictionary<string, object>>>("list_user_groups", new object[] { sessionKey });
+        }
+
+        // Anket gruplarını listeleme
+        public async Task<List<Dictionary<string, object>>> ListSurveyGroupsAsync(string sessionKey)
+        {
+            return await CallApiAsync<List<Dictionary<string, object>>>("list_survey_groups", new object[] { sessionKey });
+        }
     }
 }
